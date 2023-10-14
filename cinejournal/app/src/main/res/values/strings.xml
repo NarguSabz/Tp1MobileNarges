@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">cinejournal</string>
+    <string name="textTitre">Titre</string>
+    <string name="textSlogan">Slogan</string>
+    <string name="textAnnee">Année</string>
+    <string name="textNote">Note</string>
+    <string name="textImage">Image</string>
+    <string name="textSauvegarder">Sauvegarder</string>
+    <string name="textAnnuler">Annuler</string>
+    <string name="textTitreApp">Ciné Journal</string>
+    <string name="textDes1">"Par Narges Sabbagh Ziarani (2043822), dans le cadre du cours 420-5GM-RE, Automne 2023, Collège de Bois-de-Boulogne "</string>
+    <string name="textDes2">Cette application sert à journaliser les films que vous écoutez et combien vous les appréciez</string>
+    <string name="textMesFilms">Mes films</string>
+    <string name="textAucunFilm">Rien pour le moment, ajoutez un premier film!</string>
+    <string name="textAjouter">Ajouter</string>
+    <string name="textTrouverFilm">Trouver un film</string>
+    <string name="textTitreFilm">Titre du film</string>
+    <string name="textRechercher">Rechercher</string>
 </resources>

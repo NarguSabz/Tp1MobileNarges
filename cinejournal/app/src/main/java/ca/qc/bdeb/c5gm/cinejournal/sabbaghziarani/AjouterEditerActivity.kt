@@ -122,7 +122,11 @@ class AjouterEditerActivity : AppCompatActivity() {
                 runOnUiThread {
                 }
             }
-            Toast.makeText(baseContext, "${filmAAjouter.titre} ajouté à la liste", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                baseContext,
+                "${filmAAjouter.titre} ajouté à la liste",
+                Toast.LENGTH_SHORT
+            ).show()
             finish()
         } else if (action == "Modifier") {
             var imageModifie =

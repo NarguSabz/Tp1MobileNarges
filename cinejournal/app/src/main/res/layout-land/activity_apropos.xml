@@ -33,7 +33,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Par Narges Sabbagh Ziarani (2043822), dans le cadre du cours 420-5GM-RE, Automne 2023, Collège de Bois-de-Boulogne "
+        android:text="@string/textDes1"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,7 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:text="Cette application sert à journaliser les films que vous écoutez et combien vous les appréciez"
+        android:text="@string/textDes2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -58,7 +58,7 @@
         android:layout_marginTop="33dp"
         android:layout_marginEnd="308dp"
         android:layout_marginBottom="30dp"
-        android:text="Ciné Journal"
+        android:text="@string/textTitreApp"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"

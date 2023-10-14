@@ -36,11 +36,11 @@
                 android:textSize="34sp" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textTitre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Titre" />
+                android:text="@string/textTitre" />
 
             <EditText
                 android:id="@+id/titreFilm"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Slogan" />
+                android:text="@string/textSlogan" />
 
             <EditText
                 android:id="@+id/sloganFilm"
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Année" />
+                android:text="@string/textAnnee" />
 
             <EditText
                 android:id="@+id/anneeFilm"
@@ -94,7 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Note" />
+                android:text="@string/textNote" />
 
             <RatingBar
                 android:id="@+id/noteFilm"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="108dp"
-                android:text="Image"
+                android:text="@string/textImage"
                 app:icon="@android:drawable/ic_menu_add" />
 
             <LinearLayout
@@ -134,7 +134,7 @@
                     android:layout_marginEnd="10dp"
                     android:backgroundTint="#800900"
                     android:onClick="annuler"
-                    android:text="annuler"
+                    android:text="@string/textAnnuler"
                     android:textSize="16sp"
                     app:icon="@android:drawable/ic_menu_close_clear_cancel" />
 
@@ -145,7 +145,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="48dp"
                     android:onClick="sauvegarder"
-                    android:text="sauvegarder"
+                    android:text="@string/textSauvegarder"
                     android:textSize="16sp"
                     app:icon="@android:drawable/ic_menu_save" />
 

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Année"
+        android:text="@string/textAnnee"
         app:layout_constraintBottom_toTopOf="@+id/anneeFilm"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +73,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="28dp"
         android:ems="10"
-        android:hint="Année"
         android:inputType="date"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/noteFilm"
@@ -112,7 +111,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="108dp"
-        android:text="Image"
+        android:text="@string/textImage"
         app:icon="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toTopOf="@+id/bouttonSauvegarder"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -124,7 +123,7 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="#800900"
         android:onClick="annuler"
-        android:text="annuler"
+        android:text="@string/textAnnuler"
         android:textSize="16sp"
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
         app:layout_constraintBottom_toBottomOf="@+id/bouttonSauvegarder"
@@ -139,18 +138,18 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="48dp"
         android:onClick="sauvegarder"
-        android:text="sauvegarder"
+        android:text="@string/textSauvegarder"
         android:textSize="16sp"
         app:icon="@android:drawable/ic_menu_save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textTitre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Titre"
+        android:text="@string/textTitre"
         app:layout_constraintBottom_toTopOf="@+id/titreFilm"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -159,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Slogan"
+        android:text="@string/textSlogan"
         app:layout_constraintBottom_toTopOf="@+id/sloganFilm"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -168,7 +167,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Note"
+        android:text="@string/textNote"
         app:layout_constraintBottom_toTopOf="@+id/noteFilm"
         app:layout_constraintStart_toStartOf="parent" />
 

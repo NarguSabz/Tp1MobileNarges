@@ -9,6 +9,6 @@ class AproposActivity : AppCompatActivity() {
         setContentView(R.layout.activity_apropos)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.title = "À propos"
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
     }
 }

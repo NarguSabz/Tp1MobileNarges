@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             partagerPreferences("note")
             editeur.putBoolean("premierExecution", false)
         }
-        if(donnesVM.supprimer == true){
+        if (donnesVM.supprimer == true) {
             supprimerBd()
             donnesVM.supprimer = false
 
@@ -95,6 +95,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             if (donnesVM.listeFilms!!.isEmpty()) {
                 aucunFilmText.visibility = View.VISIBLE
+                var modeTri = preferencesParatagees.getString("modeTrie", null)
+                textTri.text = "Tri par $modeTri"
             } else {
                 aucunFilmText.visibility = View.GONE
                 gererAdapteur()
@@ -147,7 +149,7 @@ class MainActivity : AppCompatActivity() {
 
     fun supprimerBd() {
         donnesVM.supprimer = true
-
+        /*pour construit la boite de dialogue je me suis inspiree de cette video: https://youtu.be/uhXn8RcKKbI?si=KVvHwQT0qsEpu6i1*/
         val constructeur = AlertDialog.Builder(this)
         constructeur.setTitle("Tout supprimer")
             .setMessage("Cette action supprimera l'ensemble des films de la base de données, sans possibilité d'annuler")

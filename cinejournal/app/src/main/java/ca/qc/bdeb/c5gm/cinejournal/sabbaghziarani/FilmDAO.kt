@@ -11,12 +11,16 @@ import androidx.room.Update
 interface FilmDAO {
     @Query("SELECT * FROM Film")
     suspend fun getAll(): List<Film>
+
     @Query("DELETE FROM Film")
     suspend fun delete()
+
     @Insert
     suspend fun insertAll(vararg films: Film)
+
     @Update
     suspend fun updateAll(vararg films: Film)
+
     @Delete
     suspend fun delete(film: Film)
 }
