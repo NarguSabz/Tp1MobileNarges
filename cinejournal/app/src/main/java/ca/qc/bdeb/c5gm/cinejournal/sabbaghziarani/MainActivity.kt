@@ -33,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
+import java.net.SocketTimeoutException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -50,12 +51,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        BuildConfig.API_KEY_TMDB
         aucunFilmText = findViewById(R.id.aucunFilm)
         recycleView = findViewById(R.id.listeFilms)
         textTri = findViewById(R.id.textTri)
         preferencesParatagees = getSharedPreferences("mesPreferences", MODE_PRIVATE)
         editeur = preferencesParatagees.edit()
-        var premierExecution = preferencesParatagees.getBoolean("premierExecution", true)
+        val premierExecution = preferencesParatagees.getBoolean("premierExecution", true)
         if (premierExecution) {
             partagerPreferences("note")
             editeur.putBoolean("premierExecution", false)
@@ -71,20 +74,31 @@ class MainActivity : AppCompatActivity() {
     /**on va besoin de obtenir la liste des films seulement au tout debut et apres chaque
     modification ou ajout de films, sinon  on veut pas reenvoyer une requete a la bd
     quand on change l orientation, donc on envoie une requete getall a la bd
-    seulement quand la list des films dans viewmodels est a null, donc au tout debut
-    ou quand un nouveau film est ajoute ou un film est modifie**/
+    seulement quand la list des films dans viewmodels est vide et que la bd n est n est pas vide, donc au tout debut
+    ou quand un nouveau film est ajoute ou un film est modifie, quand la bd est vide, on ne va pas faire une requete **/
 
     override fun onStart() {
         super.onStart()
-        if (donnesVM.listeFilms == null) {
+        if (donnesVM.listeFilms.isEmpty() and !donnesVM.aucunFilmDansBD) {
             lifecycleScope.launch(Dispatchers.IO) {
                 donnesVM.listeFilms = withContext(Dispatchers.IO) {
                     AppDatabase.getDatabase(applicationContext).filmDao().getAll()
                 }
                 withContext(Dispatchers.Main) {
-                    if (donnesVM.listeFilms!!.isEmpty()) {
+                    if (donnesVM.listeFilms.isEmpty()) {
+                        donnesVM.aucunFilmDansBD = true
                         aucunFilmText.visibility = View.VISIBLE
+                        Toast.makeText(
+                            applicationContext,
+                            "bd est vide la premiere fois qu on verifie",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "bd non vide ne savais pas",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         aucunFilmText.visibility = View.GONE
                         recycleView.visibility = View.VISIBLE
                         trierFilms()
@@ -93,11 +107,21 @@ class MainActivity : AppCompatActivity() {
             }
 
         } else {
-            if (donnesVM.listeFilms!!.isEmpty()) {
+            if (donnesVM.listeFilms.isEmpty()) {
+                Toast.makeText(
+                    applicationContext,
+                    "bd vide je savais deja",
+                    Toast.LENGTH_SHORT
+                ).show()
                 aucunFilmText.visibility = View.VISIBLE
-                var modeTri = preferencesParatagees.getString("modeTrie", null)
+                val modeTri = preferencesParatagees.getString("modeTrie", null)
                 textTri.text = "Tri par $modeTri"
             } else {
+                Toast.makeText(
+                    applicationContext,
+                    "bd non vide savais deja",
+                    Toast.LENGTH_SHORT
+                ).show()
                 aucunFilmText.visibility = View.GONE
                 gererAdapteur()
             }
@@ -108,7 +132,8 @@ class MainActivity : AppCompatActivity() {
     fun ouvrirAjouter(view: View?) {
         val intent = Intent(applicationContext, AjouterEditerActivity::class.java)
         intent.putExtra("action", "Ajouter")
-        donnesVM.listeFilms = null
+        donnesVM.listeFilms = listOf()
+        donnesVM.aucunFilmDansBD = false
         startActivity(intent)
     }
 
@@ -116,7 +141,8 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(applicationContext, AjouterEditerActivity::class.java)
         intent.putExtra("action", "Modifier")
         intent.putExtra("Film", film)
-        donnesVM.listeFilms = null
+        donnesVM.listeFilms = listOf()
+        donnesVM.aucunFilmDansBD = false
         startActivity(intent)
     }
 
@@ -149,6 +175,7 @@ class MainActivity : AppCompatActivity() {
 
     fun supprimerBd() {
         donnesVM.supprimer = true
+        donnesVM.aucunFilmDansBD = true
         /*pour construit la boite de dialogue je me suis inspiree de cette video: https://youtu.be/uhXn8RcKKbI?si=KVvHwQT0qsEpu6i1*/
         val constructeur = AlertDialog.Builder(this)
         constructeur.setTitle("Tout supprimer")
@@ -194,7 +221,7 @@ class MainActivity : AppCompatActivity() {
     class ListeFilmAdaptor(
         val ctx: Context,
         val activity: MainActivity,
-        var data: List<Film>?
+        var data: List<Film>
     ) : RecyclerView.Adapter<ItemFilmHolder>() {
         override fun onCreateViewHolder(
             parent: ViewGroup, viewType: Int
@@ -209,13 +236,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getItemCount(): Int {
-            return data!!.size
+            return data.size
         }
 
         override fun onBindViewHolder(
             holder: ItemFilmHolder, position: Int
         ) {
-            val item = data!![position]
+            val item = data[position]
             holder.layout.setOnClickListener {
                 this.activity.ouvrirModifier(item)
             }
@@ -229,17 +256,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun trierFilms() {
-        var modeTri = preferencesParatagees.getString("modeTrie", null)
+        val modeTri = preferencesParatagees.getString("modeTrie", null)
         donnesVM.listeFilms = when (modeTri) {
-            "note" -> donnesVM.listeFilms?.sortedWith(compareBy { it.nombreEtoile })
-            "titre" -> donnesVM.listeFilms?.sortedWith(compareBy { it.titre })
-            else -> donnesVM.listeFilms?.sortedWith(compareBy { it.anneParution })
+            "note" -> donnesVM.listeFilms.sortedWith(compareBy { it.nombreEtoile })
+            "titre" -> donnesVM.listeFilms.sortedWith(compareBy { it.titre })
+            else -> donnesVM.listeFilms.sortedWith(compareBy { it.anneParution })
         }
         gererAdapteur()
     }
 
     fun gererAdapteur() {
-        var modeTri = preferencesParatagees.getString("modeTrie", null)
+        val modeTri = preferencesParatagees.getString("modeTrie", null)
         textTri.text = "Tri par $modeTri"
         adapteur = ListeFilmAdaptor(applicationContext, this@MainActivity, donnesVM.listeFilms)
         recycleView.adapter = adapteur

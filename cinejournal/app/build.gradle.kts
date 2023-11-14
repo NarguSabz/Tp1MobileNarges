@@ -1,8 +1,11 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("kotlin-parcelize")
+
 
 }
 
@@ -19,14 +22,25 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
+        val API_KEY_TMDB = gradleLocalProperties(rootDir)
+            .getProperty("API_KEY_TMDB")
+        debug {
+            buildConfigField("String", "API_KEY_TMDB", API_KEY_TMDB)
+
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "API_KEY_TMDB", API_KEY_TMDB)
+
         }
     }
     compileOptions {
@@ -61,4 +75,9 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+
 }

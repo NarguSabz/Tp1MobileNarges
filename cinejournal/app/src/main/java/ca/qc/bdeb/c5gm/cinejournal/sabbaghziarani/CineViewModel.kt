@@ -7,7 +7,9 @@ class CineViewModel : ViewModel() {
     /*la liste de films est conserve donc apres une simple changement on ne va pas encore demander la
      * liste a la base de donnee
      */
-    var listeFilms: List<Film>? = null
+    var listeFilms: List<Film> = listOf()
+
+    var aucunFilmDansBD = false
 
     /*l image local qui est choisi est conservee alors en changeant l orientation, on va toujours voir l image choisi
      */
