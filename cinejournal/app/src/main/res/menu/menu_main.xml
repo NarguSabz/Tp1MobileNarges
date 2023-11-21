@@ -34,4 +34,7 @@
                 android:title="Année" />
         </menu>
     </item>
+    <item
+        android:id="@+id/item_celebrite"
+        android:title="lister les films d'un célébrité" />
 </menu>

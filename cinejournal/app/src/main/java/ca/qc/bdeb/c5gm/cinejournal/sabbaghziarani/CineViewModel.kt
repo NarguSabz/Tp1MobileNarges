@@ -16,9 +16,12 @@ class CineViewModel : ViewModel() {
      */
     var imageLocale: Uri? = null
 
+    var imageLocaleCelebrite: Uri? = null
+
     /*cette variable permet d avoir la boite de dialogue ouvert lors d un changement d orientation
      */
     var supprimer: Boolean? = null
     var listeFilmsDAPI: MutableLiveData<List<Film>> = MutableLiveData()
+    var listeFilmsDacteur: MutableList<Film> = mutableListOf()
 
 }

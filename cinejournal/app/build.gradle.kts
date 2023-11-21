@@ -1,5 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -7,9 +7,24 @@ plugins {
     id("kotlin-parcelize")
 }
 
+
+group = "com.example"
+version = "1.0-SNAPSHOT"
+
+
+repositories {
+    mavenCentral()
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+tasks.withType<KotlinCompile>() {
+    kotlinOptions.jvmTarget = "1.8"
+}
 android {
     namespace = "ca.qc.bdeb.c5gm.cinejournal.sabbaghziarani"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ca.qc.bdeb.c5gm.cinejournal.sabbaghziarani"
@@ -20,23 +35,30 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildFeatures {
         buildConfig = true
     }
     buildTypes {
+        val AWS_ACCESS_KEY_ID = gradleLocalProperties(rootDir)
+            .getProperty("AWS_ACCESS_KEY_ID")
+        val AWS_SECRET_ACCESS_KEY = gradleLocalProperties(rootDir)
+            .getProperty("AWS_SECRET_ACCESS_KEY")
         val API_KEY_TMDB = gradleLocalProperties(rootDir)
             .getProperty("API_KEY_TMDB")
         debug {
+            buildConfigField("String", "AWS_ACCESS_KEY_ID", AWS_ACCESS_KEY_ID)
+            buildConfigField("String", "AWS_SECRET_ACCESS_KEY", AWS_SECRET_ACCESS_KEY)
             buildConfigField("String", "API_KEY_TMDB", API_KEY_TMDB)
-
         }
-
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "AWS_ACCESS_KEY_ID", AWS_ACCESS_KEY_ID)
+            buildConfigField("String", "AWS_SECRET_ACCESS_KEY", AWS_SECRET_ACCESS_KEY)
             buildConfigField("String", "API_KEY_TMDB", API_KEY_TMDB)
 
         }
@@ -61,10 +83,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    val lifecycle_version= "2.6.2"
+    val lifecycle_version = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    val room_version= "2.5.2"
+    val room_version = "2.5.2"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     // To use Kotlin Symbol Processing (KSP)
@@ -77,5 +99,19 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    //prototype
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("aws.sdk.kotlin:s3:0.25.0-beta")
+    implementation("aws.sdk.kotlin:dynamodb:0.25.0-beta")
+    implementation("aws.sdk.kotlin:iam:0.25.0-beta")
+    implementation("aws.sdk.kotlin:cloudwatch:0.25.0-beta")
+    implementation("aws.sdk.kotlin:cognitoidentityprovider:0.25.0-beta")
+    implementation("aws.sdk.kotlin:sns:0.25.0-beta")
+    implementation("aws.sdk.kotlin:pinpoint:0.25.0-beta")
+    implementation("aws.sdk.kotlin:rekognition:0.30.1-beta")
+
+
+// test dependency
+    testImplementation(kotlin("test"))
+
 }

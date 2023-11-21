@@ -68,6 +68,9 @@ import java.util.logging.Logger
 /**
  * Ensemble de data class pour représenter les données fournies par l'API
  */
+data class Acteur(val id: Int)
+data class ReponseRechercheActeur(@SerializedName("results") val resultatsRecherche: List<Acteur>)
+data class ReponseRechercheFilmsActeur(@SerializedName("cast") val resultatsRecherche: List<FilmDApi>)
 data class FilmDApi(
     /**
      * Dans le cas où on veut donner un nom plus clair à notre classe
@@ -128,6 +131,12 @@ interface ApiService {
 
     @GET("3/movie/{movie_id}")
     suspend fun getRechercheFilmApprofondi(@Path("movie_id") movie_id: Int): Response<ReponseRechercheFilmApprofondi>
+
+    @GET("3/search/person")
+    suspend fun getActeur(@Query("query") name: String): Response<ReponseRechercheActeur>
+
+    @GET("3/person/{person_id}/movie_credits")
+    suspend fun getListFilmsActeur(@Path("person_id") person_id: Int): Response<ReponseRechercheFilmsActeur>
 }
 
 /**

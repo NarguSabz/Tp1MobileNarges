@@ -54,13 +54,12 @@ class AjouterEditerActivity : AppCompatActivity() {
         if (action == "Modifier" || action == "AjouterFilmDApi") {
             titreModifierouAjouter.text = titreModifier
             filmAModifier = intent?.extras?.getParcelable("Film")
-
-                if (donnesVM.imageLocale == null) {
-                    if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
-                        .load(filmAModifier?.image).into(imageFilm)
-                } else {
-                    if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
-                        .load(donnesVM.imageLocale).into(imageFilm)
+            if (donnesVM.imageLocale == null) {
+                if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
+                    .load(filmAModifier?.image).into(imageFilm)
+            } else {
+                if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
+                    .load(donnesVM.imageLocale).into(imageFilm)
 
             }
             titreFilm.text = Editable.Factory.getInstance().newEditable(filmAModifier?.titre)
@@ -111,13 +110,13 @@ class AjouterEditerActivity : AppCompatActivity() {
             )
             toast.show()
         } else if (action == "Ajouter" || action == "AjouterFilmDApi") {
-            var imageModifie : String?= null
-            if(action == "AjouterFilmDApi") {
+            var imageModifie: String? = null
+            if (action == "AjouterFilmDApi") {
                 imageModifie =
                     if (donnesVM.imageLocale == null) filmAModifier?.image.toString() else donnesVM.imageLocale.toString()
 
-            } else{
-                imageModifie =  donnesVM.imageLocale.toString()
+            } else {
+                imageModifie = donnesVM.imageLocale.toString()
             }
             var filmAAjouter = Film(
                 null,

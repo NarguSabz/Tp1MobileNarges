@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         BuildConfig.API_KEY_TMDB
         aucunFilmText = findViewById(R.id.aucunFilm)
         recycleView = findViewById(R.id.listeFilms)
@@ -128,6 +127,10 @@ class MainActivity : AppCompatActivity() {
             R.id.trie_note -> partagerPreferences("note")
             R.id.item_propos -> {
                 val intent = Intent(applicationContext, AproposActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.item_celebrite -> {
+                val intent = Intent(applicationContext, ActivityReconnaissanceCelebrite::class.java)
                 startActivity(intent)
             }
 

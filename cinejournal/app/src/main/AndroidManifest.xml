@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name="ca.qc.bdeb.c5gm.cinejournal.sabbaghziarani.ActivityReconnaissanceCelebrite"
+            android:exported="false" />
+        <activity
             android:name=".AjouterEditerActivity"
             android:exported="false" />
         <activity
