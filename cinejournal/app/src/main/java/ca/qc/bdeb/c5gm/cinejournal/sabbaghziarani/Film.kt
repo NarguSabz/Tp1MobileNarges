@@ -9,9 +9,10 @@ import kotlinx.android.parcel.Parcelize
 @Entity
 data class Film(
     @PrimaryKey(autoGenerate = true) val uid: Int?,
-    val image: String,
+    val image: String?,
     val titre: String,
     val anneParution: String,
-    val slogan: String,
-    val nombreEtoile: Int
+    var slogan: String?,
+    val nombreEtoile: Int,
+    val idAPI: Int?
 ) : Parcelable {}

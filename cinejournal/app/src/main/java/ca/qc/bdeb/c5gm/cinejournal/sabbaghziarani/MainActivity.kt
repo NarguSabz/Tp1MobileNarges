@@ -1,42 +1,29 @@
 package ca.qc.bdeb.c5gm.cinejournal.sabbaghziarani
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.net.SocketTimeoutException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     val donnesVM: CineViewModel by viewModels()
@@ -88,17 +75,8 @@ class MainActivity : AppCompatActivity() {
                     if (donnesVM.listeFilms.isEmpty()) {
                         donnesVM.aucunFilmDansBD = true
                         aucunFilmText.visibility = View.VISIBLE
-                        Toast.makeText(
-                            applicationContext,
-                            "bd est vide la premiere fois qu on verifie",
-                            Toast.LENGTH_SHORT
-                        ).show()
+
                     } else {
-                        Toast.makeText(
-                            applicationContext,
-                            "bd non vide ne savais pas",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         aucunFilmText.visibility = View.GONE
                         recycleView.visibility = View.VISIBLE
                         trierFilms()
@@ -108,20 +86,10 @@ class MainActivity : AppCompatActivity() {
 
         } else {
             if (donnesVM.listeFilms.isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "bd vide je savais deja",
-                    Toast.LENGTH_SHORT
-                ).show()
                 aucunFilmText.visibility = View.VISIBLE
                 val modeTri = preferencesParatagees.getString("modeTrie", null)
                 textTri.text = "Tri par $modeTri"
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    "bd non vide savais deja",
-                    Toast.LENGTH_SHORT
-                ).show()
                 aucunFilmText.visibility = View.GONE
                 gererAdapteur()
             }
@@ -165,6 +133,8 @@ class MainActivity : AppCompatActivity() {
 
             R.id.item_trouver -> {
                 val intent = Intent(applicationContext, RechercheFilmActivity::class.java)
+                donnesVM.listeFilms = listOf()
+                donnesVM.aucunFilmDansBD = false
                 startActivity(intent)
             }
 
@@ -246,7 +216,7 @@ class MainActivity : AppCompatActivity() {
             holder.layout.setOnClickListener {
                 this.activity.ouvrirModifier(item)
             }
-            holder.image.setImageURI(item.image.toUri())
+            if (item.image != null) Glide.with(this.activity).load(item.image).into(holder.image)
             holder.anneParution.text = "(${item.anneParution})"
             holder.slogan.text = item.slogan
             holder.titre.text = item.titre

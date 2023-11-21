@@ -11,9 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="9dp"
         android:text="@string/textAnnee"
-        app:layout_constraintBottom_toTopOf="@+id/anneeFilm"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sloganFilm" />
 
     <include
         android:id="@+id/toolbar"
@@ -38,15 +39,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/sloganFilm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitre" />
 
     <EditText
         android:id="@+id/sloganFilm"
@@ -54,14 +55,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="text"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/anneeFilm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/anneeFilm"
@@ -69,14 +69,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="28dp"
         android:ems="10"
         android:inputType="date"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/noteFilm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <RatingBar
         android:id="@+id/noteFilm"
@@ -84,63 +83,63 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="137dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageChoisiFilm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <ImageView
         android:id="@+id/imageChoisiFilm"
         android:layout_width="129dp"
         android:layout_height="167dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="62dp"
         app:layout_constraintBottom_toTopOf="@+id/bouttonAnnuler"
         app:layout_constraintEnd_toStartOf="@+id/imageBouton"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteFilm"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/imageBouton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="44dp"
         android:text="@string/textImage"
         app:icon="@android:drawable/ic_menu_add"
-        app:layout_constraintBottom_toTopOf="@+id/bouttonSauvegarder"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteFilm" />
 
     <Button
         android:id="@+id/bouttonAnnuler"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#800900"
         android:onClick="annuler"
         android:text="@string/textAnnuler"
         android:textSize="16sp"
         app:icon="@android:drawable/ic_menu_close_clear_cancel"
-        app:layout_constraintBottom_toBottomOf="@+id/bouttonSauvegarder"
         app:layout_constraintEnd_toStartOf="@+id/bouttonSauvegarder"
-        app:layout_constraintTop_toTopOf="@+id/bouttonSauvegarder"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageChoisiFilm" />
 
     <Button
         android:id="@+id/bouttonSauvegarder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="8dp"
         android:onClick="sauvegarder"
         android:text="@string/textSauvegarder"
         android:textSize="16sp"
         app:icon="@android:drawable/ic_menu_save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageBouton" />
 
     <TextView
         android:id="@+id/textTitre"
@@ -148,25 +147,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:text="@string/textTitre"
-        app:layout_constraintBottom_toTopOf="@+id/titreFilm"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreAjouterModifier" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:text="@string/textSlogan"
-        app:layout_constraintBottom_toTopOf="@+id/sloganFilm"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titreFilm" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
         android:text="@string/textNote"
-        app:layout_constraintBottom_toTopOf="@+id/noteFilm"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anneeFilm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

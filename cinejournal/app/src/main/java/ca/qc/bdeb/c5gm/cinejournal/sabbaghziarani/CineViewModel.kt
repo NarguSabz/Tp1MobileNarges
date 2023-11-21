@@ -1,6 +1,7 @@
 package ca.qc.bdeb.c5gm.cinejournal.sabbaghziarani
 
 import android.net.Uri
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class CineViewModel : ViewModel() {
@@ -18,5 +19,6 @@ class CineViewModel : ViewModel() {
     /*cette variable permet d avoir la boite de dialogue ouvert lors d un changement d orientation
      */
     var supprimer: Boolean? = null
+    var listeFilmsDAPI: MutableLiveData<List<Film>> = MutableLiveData()
 
 }

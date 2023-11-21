@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -50,13 +51,16 @@ class AjouterEditerActivity : AppCompatActivity() {
         noteFilm = findViewById(R.id.noteFilm)
         titreModifierouAjouter = findViewById(R.id.titreAjouterModifier)
         action = intent?.extras?.getString("action")
-        if (action == "Modifier") {
+        if (action == "Modifier" || action == "AjouterFilmDApi") {
             titreModifierouAjouter.text = titreModifier
             filmAModifier = intent?.extras?.getParcelable("Film")
-            if (donnesVM.imageLocale == null) {
-                imageFilm.setImageURI(filmAModifier?.image?.toUri())
-            } else {
-                imageFilm.setImageURI(donnesVM.imageLocale)
+
+                if (donnesVM.imageLocale == null) {
+                    if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
+                        .load(filmAModifier?.image).into(imageFilm)
+                } else {
+                    if (filmAModifier?.image != null) Glide.with(this@AjouterEditerActivity)
+                        .load(donnesVM.imageLocale).into(imageFilm)
 
             }
             titreFilm.text = Editable.Factory.getInstance().newEditable(filmAModifier?.titre)
@@ -106,14 +110,23 @@ class AjouterEditerActivity : AppCompatActivity() {
                 Toast.LENGTH_LONG
             )
             toast.show()
-        } else if (action == "Ajouter") {
+        } else if (action == "Ajouter" || action == "AjouterFilmDApi") {
+            var imageModifie : String?= null
+            if(action == "AjouterFilmDApi") {
+                imageModifie =
+                    if (donnesVM.imageLocale == null) filmAModifier?.image.toString() else donnesVM.imageLocale.toString()
+
+            } else{
+                imageModifie =  donnesVM.imageLocale.toString()
+            }
             var filmAAjouter = Film(
                 null,
-                donnesVM.imageLocale.toString(),
+                imageModifie,
                 titreFilm.text.toString(),
                 anneeFilm.text.toString(),
                 sloganFilm.text.toString(),
-                noteFilm.progress
+                noteFilm.progress,
+                null
             )
             lifecycleScope.launch(Dispatchers.IO) {
                 val database: AppDatabase =
@@ -137,7 +150,8 @@ class AjouterEditerActivity : AppCompatActivity() {
                 titreFilm.text.toString(),
                 anneeFilm.text.toString(),
                 sloganFilm.text.toString(),
-                noteFilm.progress
+                noteFilm.progress,
+                null
             )
             lifecycleScope.launch(Dispatchers.IO) {
                 val database: AppDatabase =

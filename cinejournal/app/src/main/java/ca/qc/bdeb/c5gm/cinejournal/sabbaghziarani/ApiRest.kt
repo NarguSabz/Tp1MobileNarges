@@ -80,7 +80,7 @@ data class FilmDApi(
     @SerializedName("original_title") val titreOriginal: String,
     @SerializedName("overview") val sommaire: String,
     @SerializedName("popularity") val popularite: Double,
-    @SerializedName("poster_path") val pathPoster: String,
+    @SerializedName("poster_path") val pathPoster: String?,
     @SerializedName("release_date") val dateSortie: String,
     @SerializedName("title") val titre: String,
     @SerializedName("vote_average") val note: Double,
@@ -104,6 +104,17 @@ data class ReponseRecherche(
     @SerializedName("total_results") val nbreResultatsTotal: Int,
 )
 
+data class ReponseRechercheFilmApprofondi(
+    /**
+     * Dans le cas où on veut donner un nom plus clair à notre classe
+     * que le nom qui est disponible dans l'API, on peut utiliser
+     *
+     * @SerializedName("nomDansLAPI")
+     */
+    @SerializedName("tagline") val slogan: String
+
+)
+
 /**
  * Interface qui spécifie des méthodes qui seront générées automatiquement par la librairie Retrofit
  *
@@ -114,6 +125,9 @@ data class ReponseRecherche(
 interface ApiService {
     @GET("3/search/movie")
     suspend fun getRecherche(@Query("query") name: String): Response<ReponseRecherche>
+
+    @GET("3/movie/{movie_id}")
+    suspend fun getRechercheFilmApprofondi(@Path("movie_id") movie_id: Int): Response<ReponseRechercheFilmApprofondi>
 }
 
 /**
@@ -169,7 +183,7 @@ object ApiClient {
          * C'est une bonne alternative à définir un constructeur avec 2178643 arguments,
          * qui sont tous possiblement optionnels
          */
-        
+
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(httpClient)

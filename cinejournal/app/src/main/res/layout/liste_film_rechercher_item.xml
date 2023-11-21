@@ -7,9 +7,9 @@
 
     <TextView
         android:id="@+id/anneParution"
-        android:layout_width="wrap_content"
+        android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textColor="#000000"
@@ -22,27 +22,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/anneParution"
-        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toEndOf="@+id/imageFilm"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/slogan"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageFilm"
-        app:layout_constraintTop_toBottomOf="@+id/titre" />
 
     <ImageView
         android:id="@+id/imageFilm"
@@ -56,16 +43,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <RatingBar
-        android:id="@+id/note"
-        android:layout_width="240dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:isIndicator="true"
-        android:progressTint="#003A78"
-        app:layout_constraintStart_toEndOf="@+id/imageFilm"
-        app:layout_constraintTop_toBottomOf="@+id/slogan" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
